@@ -11,7 +11,7 @@
         </preConditions>
         <comment> Modify Bahmni preferred EMR API scheduler to close stale visits every hour </comment>
         <update tableName="scheduler_task_config">
-                <column name="repeat_interval" value="3600" />
+                <column name="repeat_interval" value="3600"/>
                 <where>name="repeat_interval"</where>
         </update>
     </changeSet>
