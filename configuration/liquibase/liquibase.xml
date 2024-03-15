@@ -5,23 +5,15 @@
                   
 
     <changeSet id="202402271000" author="Kazooba,Lawrence">
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">
+        <preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult="1">
                 select count(*) from scheduler_task_config where schedulable_class= "org.openmrs.module.emrapi.adt.CloseStaleVisitsTask" and name = "Close Stale Visits Task"; </sqlCheck>
         </preConditions>
         <comment> Modify Bahmni preferred EMR API scheduler to close stale visits every hour </comment>
-        <insert tableName="scheduler_task_config">
-                <column name="name" value="Close Stale Visits Task" />
-                <column name="description" value="Auto close visit task after number of hours specified by emrapi.visitExpireHours" />
-                <column name="schedulable_class" value="org.openmrs.module.emrapi.adt.CloseStaleVisitsTask" />
-                <column name="start_on_startup" valueBoolean="true" />
-                <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
-                <column name="start_time" valueDate="2014-04-30T23:59:59" />
+        <update tableName="scheduler_task_config">
                 <column name="repeat_interval" value="3600" />
-                <column name="date_created" valueDate="CURRENT_TIMESTAMP" />
-                <column name="created_by" value="1" />
-                <column name="uuid" valueComputed="uuid()" />
-        </insert>
+                <where>name="repeat_interval"</where>
+        </update>
     </changeSet>
 
 
